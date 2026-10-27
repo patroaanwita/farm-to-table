@@ -169,7 +169,7 @@ def seed_demo_data():
         harvest_date=today - timedelta(days=1),
         quantity="24 crates (480 kg)",
         status="At local market",
-        notes="A demonstration batch created for Riddhi's Grade 9 prototype.",
+        notes="A demonstration batch created for the Grade 9 FarmTrack prototype.",
     )
     db.session.add(batch)
     db.session.flush()
