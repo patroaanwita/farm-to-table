@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Presenter mode — FarmTrack{% endblock %}
+{% block content %}
+<section class="form-page compact">
+  <div class="form-intro"><span class="eyebrow dark">PRESENTER MODE</span><h1>Ready to demonstrate?</h1><p>Enter the project password to create batches, add checkpoints and send SMS updates.</p></div>
+  <form class="form-card" method="post">
+    <label>Password<input type="password" name="password" required autofocus placeholder="Enter demonstration password"></label>
+    <button class="button primary full" type="submit">Unlock controls</button>
+    <small>Local default for development: <code>farmtrack9</code>. Change it before publishing.</small>
+  </form>
+</section>
+{% endblock %}
+

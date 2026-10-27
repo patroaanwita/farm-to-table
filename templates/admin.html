@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Demonstration controls — FarmTrack{% endblock %}
+{% block content %}
+<section class="admin-hero">
+  <div><span class="eyebrow">PRESENTER MODE</span><h1>Journey control centre</h1><p>Create a batch, update its journey, then send a live SMS.</p></div>
+  <a class="button light" href="{{ url_for('new_batch') }}">＋ Create new batch</a>
+</section>
+<section class="admin-shell">
+  <div class="panel table-panel">
+    <div class="panel-heading"><div><span class="eyebrow dark">BATCHES</span><h2>Produce in the system</h2></div></div>
+    <div class="responsive-table">
+      <table><thead><tr><th>Batch</th><th>Status</th><th>Last location</th><th>Actions</th></tr></thead><tbody>
+        {% for batch in batches %}
+        <tr><td><strong>{{ batch.produce_name }}</strong><small>{{ batch.code }} · {{ batch.farm_name }}</small></td><td><span class="status-pill"><i></i>{{ batch.status }}</span></td><td>{{ batch.latest_location }}</td><td><div class="action-group"><a href="{{ url_for('track', code=batch.code) }}">View</a><a href="{{ url_for('new_event', batch_id=batch.id) }}">Add checkpoint</a><form class="sms-form" method="post" action="{{ url_for('notify', batch_id=batch.id) }}">{% if recipients|length > 1 %}<select name="recipient" aria-label="SMS recipient" required><option value="">Choose phone</option>{% for recipient in recipients %}<option value="{{ recipient.value }}">{{ recipient.label }}</option>{% endfor %}</select>{% elif recipients %}<input type="hidden" name="recipient" value="{{ recipients[0].value }}">{% endif %}<button {% if not recipients %}disabled title="Configure a recipient number"{% endif %}>Send SMS</button></form></div></td></tr>
+        {% endfor %}
+      </tbody></table>
+    </div>
+  </div>
+  <div class="panel notification-panel">
+    <div class="panel-heading"><div><span class="eyebrow dark">NOTIFICATIONS</span><h2>SMS activity</h2></div></div>
+    {% if notifications %}<div class="notification-list">{% for note in notifications %}<article><span class="notification-icon">✉</span><div><strong>{{ note.delivery_status }}</strong><p>{{ note.message }}</p><small>{{ note.recipient_masked }} · {{ note.created_at.strftime('%d %b, %I:%M %p') }}</small></div></article>{% endfor %}</div>{% else %}<div class="empty-state">No messages yet. Select “Send SMS” beside a batch.</div>{% endif %}
+  </div>
+</section>
+{% endblock %}
+

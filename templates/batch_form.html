@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Create batch — FarmTrack{% endblock %}
+{% block content %}
+<section class="form-page">
+  <div class="form-intro"><span class="eyebrow dark">NEW BATCH</span><h1>Start a traceable journey.</h1><p>Enter the details found at the farm. FarmTrack will create the first checkpoint and QR label automatically.</p></div>
+  <form class="form-card form-grid" method="post">
+    <label>Batch code<input name="code" required maxlength="30" placeholder="e.g. SPN-002"></label>
+    <label>Vegetable<input name="produce_name" required placeholder="e.g. Spinach"></label>
+    <label>Variety<input name="variety" placeholder="e.g. All Green"></label>
+    <label>Harvest date<input type="date" name="harvest_date" required></label>
+    <label>Farm name<input name="farm_name" required placeholder="Farm or producer name"></label>
+    <label>Farmer name<input name="farmer_name" required placeholder="Farmer's name"></label>
+    <label class="span-2">Farm location<input name="origin" required placeholder="Town, district, state"></label>
+    <label>Quantity<input name="quantity" required placeholder="e.g. 10 crates (100 kg)"></label>
+    <label class="span-2">Notes<textarea name="notes" rows="3" placeholder="Optional growing or handling details"></textarea></label>
+    <div class="form-actions span-2"><a class="button secondary" href="{{ url_for('admin_dashboard') }}">Cancel</a><button class="button primary" type="submit">Create batch & QR</button></div>
+  </form>
+</section>
+{% endblock %}
+

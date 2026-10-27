@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{ batch.produce_name }} {{ batch.code }} — FarmTrack{% endblock %}
+{% block content %}
+<section class="track-hero">
+  <div class="breadcrumb"><a href="{{ url_for('index') }}">All batches</a><span>›</span><span>{{ batch.code }}</span></div>
+  <div class="track-heading">
+    <div><span class="eyebrow">VERIFIED PRODUCE JOURNEY</span><h1>{{ batch.produce_name }}</h1><p>{{ batch.variety }} · Batch {{ batch.code }}</p></div>
+    <div class="verified-badge"><span>✓</span><div><small>DIGITAL RECORD</small><b>Verified batch</b></div></div>
+  </div>
+</section>
+
+<section class="track-shell">
+  <div class="track-main">
+    <div class="summary-grid">
+      <article><span>🌾</span><small>DAYS SINCE HARVEST</small><strong>{{ batch.days_since_harvest }} day{% if batch.days_since_harvest != 1 %}s{% endif %}</strong></article>
+      <article><span>⌁</span><small>DISTANCE</small><strong>{{ batch.total_distance }} km</strong></article>
+      <article><span>📍</span><small>CURRENT LOCATION</small><strong>{{ batch.latest_location }}</strong></article>
+      <article><span>✦</span><small>FRESHNESS SCORE</small><strong>{{ batch.freshness_score }}/100 · {{ batch.freshness }}</strong></article>
+    </div>
+
+    <div class="panel journey-panel">
+      <div class="panel-heading"><div><span class="eyebrow dark">TRACEABILITY</span><h2>Journey timeline</h2></div><span class="event-count">{{ batch.events|length }} checkpoints</span></div>
+      <div class="timeline">
+        {% for event in batch.events %}
+        <article class="timeline-item {% if loop.last %}current{% endif %}">
+          <div class="timeline-marker">{% if loop.last %}✓{% else %}{{ loop.index }}{% endif %}</div>
+          <div class="timeline-content">
+            <div class="event-title"><h3>{{ event.stage }}</h3><time>{{ event.event_time.strftime('%d %b, %I:%M %p') }}</time></div>
+            <strong class="location">📍 {{ event.location }}</strong>
+            <p>{{ event.notes }}</p>
+            <div class="event-meta">{% if event.handled_by %}<span>Handled by {{ event.handled_by }}</span>{% endif %}{% if event.distance_km %}<span>+{{ event.distance_km }} km</span>{% endif %}{% if event.temperature_c is not none %}<span>{{ event.temperature_c }}°C</span>{% endif %}{% if event.storage_condition %}<span>{{ event.storage_condition }}</span>{% endif %}</div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <aside class="track-aside">
+    <div class="panel farmer-card">
+      <span class="eyebrow dark">MEET THE GROWER</span>
+      <div class="farmer-avatar">{{ batch.farmer_name[0] }}</div>
+      <h2>{{ batch.farmer_name }}</h2><p>{{ batch.farm_name }}</p>
+      <dl><div><dt>Farm location</dt><dd>{{ batch.origin }}</dd></div><div><dt>Batch quantity</dt><dd>{{ batch.quantity }}</dd></div></dl>
+      <dl><div><dt>Number of handlers</dt><dd>{{ batch.handling_count }}</dd></div><div><dt>Harvested</dt><dd>{{ batch.harvest_date.strftime('%d %b %Y') }}</dd></div></dl>
+    </div>
+    <div class="panel qr-panel">
+      <span class="eyebrow dark">SHARE THIS JOURNEY</span>
+      <img src="{{ url_for('qr_code', code=batch.code) }}" alt="QR code for batch {{ batch.code }}">
+      <p>Scan to reopen this verified batch record.</p>
+      <a class="button primary full" href="sms:?&body={{ sms_body }}">Share by SMS</a>
+      <button class="button secondary full" type="button" onclick="navigator.clipboard.writeText('{{ track_url }}').then(()=>this.textContent='Link copied!')">Copy tracking link</button>
+    </div>
+  </aside>
+</section>
+{% endblock %}
+

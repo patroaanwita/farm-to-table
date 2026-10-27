@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Bengaluru mandis — FarmTrack{% endblock %}
+{% block content %}
+<section class="market-hero">
+  <span class="eyebrow">LOCAL MARKET DIRECTORY</span>
+  <h1>Bengaluru mandis in the tracking system</h1>
+  <p>The mandi checkpoint connects the farm journey to wholesale trade and the retailer.</p>
+</section>
+<section class="section market-directory">
+  <div class="market-list">
+    {% for market in markets %}
+    <article><div class="market-index">0{{ loop.index }}</div><div><span class="market-type">{{ market.type }}</span><h2>{{ market.name }}</h2><p class="market-address">📍 {{ market.location }}</p><p><strong>Typical produce:</strong> {{ market.produce }}</p></div></article>
+    {% endfor %}
+  </div>
+  <div class="source-note"><strong>Research basis</strong><p>Rashtriya e Market Services lists the two Bengaluru APMC markets and their major commodities. BBMP identifies K. R. Market as a city market. Bengaluru Rural APMC entries provide nearby sourcing options.</p><a href="https://www.remsl.in/ka/index.php/bangalore-division/market-details" target="_blank" rel="noopener">Karnataka ReMS market directory ↗</a><a href="https://site.bbmp.gov.in/departmentwebsites/market/" target="_blank" rel="noopener">BBMP Market Department ↗</a></div>
+</section>
+{% endblock %}

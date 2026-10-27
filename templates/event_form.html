@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Add checkpoint — FarmTrack{% endblock %}
+{% block content %}
+<section class="form-page">
+  <div class="form-intro"><span class="eyebrow dark">{{ batch.code }}</span><h1>Add a journey checkpoint.</h1><p>Record what happened to this {{ batch.produce_name|lower }} batch and where it happened.</p></div>
+  <form class="form-card form-grid" method="post">
+    <label>Journey stage<select name="stage" required><option>Washed & sorted</option><option>Packed</option><option>Transported</option><option>At mandi</option><option>Stored</option><option>Quality checked</option><option>Delivered</option><option>At local market</option></select></label>
+    <label>Date and time<input type="datetime-local" name="event_time" value="{{ default_time }}" required></label>
+    <label class="span-2">Location<input name="location" required placeholder="Checkpoint location"></label>
+    <label class="span-2">Bengaluru mandi, if applicable<select name="market_name"><option value="">Not a mandi checkpoint</option>{% for market in bengaluru_markets %}<option value="{{ market.name }}">{{ market.short_name }} — {{ market.location }}</option>{% endfor %}</select></label>
+    <label>Distance from previous point (km)<input type="number" name="distance_km" min="0" step="0.1" value="0" required></label>
+    <label>Handled by<input name="handled_by" placeholder="Person or team"></label>
+    <label>Temperature (°C)<input type="number" name="temperature_c" step="0.1" placeholder="e.g. 20"></label>
+    <label>Storage condition<input name="storage_condition" placeholder="e.g. Ventilated crates"></label>
+    <label>Produce received?<select name="received_ok"><option value="">Not applicable</option><option value="yes">Yes, accepted</option><option value="no">No, issue reported</option></select></label>
+    <label>Purchase price (₹/kg)<input type="number" name="purchase_price_per_kg" min="0" step="0.01"></label>
+    <label>Selling price (₹/kg)<input type="number" name="selling_price_per_kg" min="0" step="0.01"></label>
+    <label class="span-2">Handling notes<textarea name="notes" rows="3" required placeholder="What happened at this stage?"></textarea></label>
+    <div class="form-actions span-2"><a class="button secondary" href="{{ url_for('admin_dashboard') }}">Cancel</a><button class="button primary" type="submit">Save checkpoint</button></div>
+  </form>
+</section>
+{% endblock %}
+

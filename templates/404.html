@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block title %}Batch not found — FarmTrack{% endblock %}
+{% block content %}<section class="not-found"><span>🌱</span><h1>We couldn’t find that batch.</h1><p>Check the code printed below the QR label and try again.</p><a class="button primary" href="{{ url_for('index') }}">View tracked batches</a></section>{% endblock %}
+
