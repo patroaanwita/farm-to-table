@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: riddhi-farm-track
+    name: riddhi-farmtrack
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
