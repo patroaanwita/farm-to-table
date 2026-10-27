@@ -142,10 +142,10 @@ def make_pdf():
     track_lower = crop_image("02-track.png", "02-track-lower.jpg", (0, 620, 1056, 1702))
     market_top = crop_image("03-markets.png", "03-markets-top.jpg", (0, 0, 1056, 1250))
 
-    doc = SimpleDocTemplate(str(OUT), pagesize=A4, rightMargin=16 * mm, leftMargin=16 * mm, topMargin=16 * mm, bottomMargin=23 * mm, title="FarmTrack Student User Manual", author="FarmTrack Team - Class 9")
+    doc = SimpleDocTemplate(str(OUT), pagesize=A4, rightMargin=16 * mm, leftMargin=16 * mm, topMargin=16 * mm, bottomMargin=23 * mm, title="FarmTrack Student User Manual", author="FarmTrack")
     story = []
 
-    cover_box = Table([[Paragraph("GRADE 9 - ROBOTICS, AUTOMATION & SMART MANUFACTURING", styles["CoverKicker"])], [Paragraph("FarmTrack<br/>Student User Manual", styles["CoverTitle"])], [Paragraph("A step-by-step guide to following vegetables from a Bengaluru farm, through the mandi, to the retailer and consumer.", styles["CoverSub"])], [Spacer(1, 14 * mm)], [Paragraph("Created for the FarmTrack team prototype", styles["CoverKicker"]) ]], colWidths=[170 * mm], rowHeights=[None, None, None, 45 * mm, None])
+    cover_box = Table([[Paragraph("GRADE 9 - ROBOTICS, AUTOMATION & SMART MANUFACTURING", styles["CoverKicker"])], [Paragraph("FarmTrack<br/>Student User Manual", styles["CoverTitle"])], [Paragraph("A step-by-step guide to following vegetables from a Bengaluru farm, through the mandi, to the retailer and consumer.", styles["CoverSub"])], [Spacer(1, 14 * mm)], [Paragraph("FarmTrack prototype", styles["CoverKicker"]) ]], colWidths=[170 * mm], rowHeights=[None, None, None, 45 * mm, None])
     cover_box.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), GREEN), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("TOPPADDING", (0, 0), (-1, 0), 20 * mm), ("BOTTOMPADDING", (0, -1), (-1, -1), 18 * mm), ("BOX", (0, 0), (-1, -1), 0, GREEN)]))
     story += [Spacer(1, 23 * mm), cover_box, Spacer(1, 12 * mm), Paragraph("PUBLIC WEBSITE", styles["SectionKicker"]), Paragraph("https://riddhi-farmtrack.onrender.com", styles["BodyManual"]), PageBreak()]
 
